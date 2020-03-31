@@ -66,8 +66,8 @@ export class Peer extends EventEmitter {
   }
 
   /**
-   * @deprecated 
-   * Return type will change from Object to Map<string,[]> 
+   * @deprecated
+   * Return type will change from Object to Map<string,[]>
    */
   get connections(): Object {
     const plainConnections = Object.create(null);
@@ -283,6 +283,9 @@ export class Peer extends EventEmitter {
 
         break;
       }
+      case ServerMessageType.Logic:
+        this.emit("logic", payload);
+        break;
       default: {
         if (!payload) {
           logger.warn(`You received a malformed message from ${peerId} of type ${type}`);
